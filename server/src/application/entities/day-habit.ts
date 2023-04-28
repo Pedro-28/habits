@@ -1,18 +1,16 @@
 import { randomUUID } from 'crypto';
-
-import { Day } from "./day";
-import { Habit } from "./habit";
+import { Replace } from '../../helpers/Replace';
 
 export interface DayHabitProps {
   id: string;
-  habit: Habit;
-  day: Day;
+  habitId: string;
+  dayId: string;
 }
 
 export class DayHabit {
   private props: DayHabitProps;
 
-  constructor(props: DayHabitProps) {
+  constructor(props: Replace<DayHabitProps, { id?: string }>) {
     this.props = {
       ...props,
       id: props.id ?? randomUUID(),
@@ -24,10 +22,10 @@ export class DayHabit {
   }
 
   public get habitId(): string {
-    return this.props.habit.id;
+    return this.props.habitId;
   }
 
   public get dayId(): string {
-    return this.props.day.id;
+    return this.props.dayId;
   }
 }

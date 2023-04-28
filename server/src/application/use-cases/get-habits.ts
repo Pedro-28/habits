@@ -29,9 +29,9 @@ export class GetHabits {
 
     const possibleHabits = await this.habitRepository.findMany(date, weekday);
 
-    const day = await this.dayRepository.findUnique(parsedDate);
+    const day = await this.dayRepository.findUnique(parsedDate, true);
 
-    const completedHabits = day?.dayHabits?.map((dayHabit) => dayHabit.habitId) ?? [];
+    const completedHabits = day?.dayHabits.map((dayHabit) => dayHabit.habitId) ?? [];
 
     return {
       possibleHabits,
