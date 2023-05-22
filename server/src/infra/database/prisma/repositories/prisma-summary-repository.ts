@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
+import { SummaryRepository } from "../../../repositories/summary-repository";
 
-export class PrismaSummaryRepository {
+export class PrismaSummaryRepository implements SummaryRepository {
   constructor(private prisma: PrismaClient) { }
 
   async query(): Promise<any> {
