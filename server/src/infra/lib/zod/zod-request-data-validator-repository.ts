@@ -16,11 +16,18 @@ export class ZodRequestDataValidatorRepository implements RequestDataValidatorRe
   }
 
   validateGetHabitsData(data: GetHabitsRequest): { date: Date; } {
-    throw new Error("Method not implemented.");
-  }
-  
-  validateToggleHabitData(data: ToggleHabitRequest): ToggleHabitRequest {
-    throw new Error("Method not implemented.");
+    const getDayParams = z.object({
+      date: z.coerce.date(),
+    });
+
+    return getDayParams.parse(data);
   }
 
+  validateToggleHabitData(data: ToggleHabitRequest): ToggleHabitRequest {
+    const toggleHabitParams = z.object({
+      id: z.string().uuid(),
+    });
+
+    return toggleHabitParams.parse(data);
+  }
 }

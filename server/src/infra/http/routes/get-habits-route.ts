@@ -1,27 +1,29 @@
 import { FastifyInstance } from "fastify";
-import { CreateHabitController } from "../controllers/create-habit-controller";
-import { CreateHabit } from "../../../application/use-cases/create-habit";
-import { PrismaHabitRepository } from "../../database/prisma/repositories/prisma-habit-repository";
+import { GetHabits } from "../../../application/use-cases/get-habits";
+import { GetHabitsController } from "../controllers/get-habits-controller";
 import { prisma } from "../../lib/prisma";
+import { PrismaHabitRepository } from "../../database/prisma/repositories/prisma-habit-repository";
+import { PrismaDayRepository } from "../../database/prisma/repositories/prisma-day-repository";
 import { DayjsDateHelperRepository } from "../../lib/dayjs/dayjs-date-helper-repository";
 import { ZodRequestDataValidatorRepository } from "../../lib/zod/zod-request-data-validator-repository";
 
-export class CreateHabitRoute {
+export class GetHabitsRoute {
   constructor(private app: FastifyInstance) { }
 
   route() {
     const prismaHabitRepository = new PrismaHabitRepository(prisma);
+    const prismaDayRepository = new PrismaDayRepository(prisma);
     const dayjsDateHelperRepository = new DayjsDateHelperRepository();
     const zodRequestDataValidatorRepository = new ZodRequestDataValidatorRepository();
 
-    const createHabit = new CreateHabit(
+    const getHabits = new GetHabits(
       prismaHabitRepository,
+      prismaDayRepository,
       dayjsDateHelperRepository,
       zodRequestDataValidatorRepository
     );
+    const getHabitsController = new GetHabitsController(getHabits);
 
-    const createHabitController = new CreateHabitController(createHabit);
-
-    this.app.post("/habits", createHabitController.execute);
+    this.app.get("/day", getHabitsController.execute);
   }
 }

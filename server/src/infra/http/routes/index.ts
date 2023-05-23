@@ -1,12 +1,19 @@
 import { FastifyInstance } from "fastify";
-import { CreateHabitController } from "../controllers/create-habit-controller";
-import { CreateHabit } from "../../../application/use-cases/create-habit";
-import { PrismaHabitRepository } from "../../database/prisma/repositories/prisma-habit-repository";
+import { CreateHabitRoute } from "./create-habit-route";
+import { GetHabitsRoute } from "./get-habits-route";
+import { ToggleHabitRoute } from "./toggle-habit-route";
+import { GetSummaryRoute } from "./get-summary-route";
 
 export class AppRoutes {
-  constructor(private app: FastifyInstance) { }  
+  static routes = async (app: FastifyInstance) => {
+    const createHabitRoute = new CreateHabitRoute(app);
+    const getHabitsRoute = new GetHabitsRoute(app);
+    const toggleHabitRoute = new ToggleHabitRoute(app);
+    const getSummaryRoute = new GetSummaryRoute(app);
 
-  routes() {
-
+    createHabitRoute.route();
+    getHabitsRoute.route();
+    toggleHabitRoute.route();
+    getSummaryRoute.route();
   }
 }

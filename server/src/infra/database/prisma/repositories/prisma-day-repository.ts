@@ -26,7 +26,9 @@ export class PrismaDayRepository implements DayRepository {
 
     const day = PrismaDayMapper.toDomain(rawDay);
 
-    day.dayHabits = rawDay.dayHabits.map(PrismaDayHabitMapper.toDomain);
+    if (isDayHabitsIncluded) {
+      day.dayHabits = rawDay.dayHabits.map(PrismaDayHabitMapper.toDomain);
+    }
 
     return day;
   }
