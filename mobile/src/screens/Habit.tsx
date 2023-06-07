@@ -59,10 +59,17 @@ export function Habit() {
   }
 
   async function handleToggleHabit(habitId: string) {
-    if (completedHabits.includes(habitId)) {
-      setCompletedHabits((prevState) => prevState.filter((habit) => habit !== habitId));
-    } else {
-      setCompletedHabits((prevState) => [...prevState, habitId]);
+    try {
+      await api.patch(`/habits/${habitId}/toggle`);
+
+      if (completedHabits.includes(habitId)) {
+        setCompletedHabits((prevState) => prevState.filter((habit) => habit !== habitId));
+      } else {
+        setCompletedHabits((prevState) => [...prevState, habitId]);
+      }
+    } catch (error) {
+      console.log(error);
+      Alert.alert('Ops', 'Não foi possível atualizar o status do hábito.');
     }
   }
 
@@ -73,6 +80,7 @@ export function Habit() {
   if (loading) {
     return (<Loading />);
   }
+  console.log(dayInfo);
 
   return (
     <View className="flex-1 bg-background px-8 pt-16">
@@ -100,7 +108,7 @@ export function Habit() {
           "opacity-50": isDateInPast,
         })}>
           {
-            dayInfo?.possibleHabits ?
+            dayInfo?.possibleHabits.length ?
               dayInfo.possibleHabits.map((habit) => (
                 <Checkbox
                   key={habit.id}
