@@ -85,7 +85,7 @@ async function run() {
         dayHabits: {
           create: {
             id: randomUUID(),
-            habit_id: firstHabitId,
+            habit_id: secondHabitId,
           },
         },
       },

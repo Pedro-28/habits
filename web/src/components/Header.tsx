@@ -3,7 +3,11 @@ import { Plus, X } from 'phosphor-react';
 import logoImage from '../assets/logo.svg';
 import { NewHabitForm } from './NewHabitForm';
 
-export function Header() {
+interface HeaderProps {
+  handleSummaryChange(): Promise<void>;
+}
+
+export function Header({ handleSummaryChange }: HeaderProps) {
   return (
     <div className="w-full max-w-3xl mx-auto flex items-center justify-between">
       <img src={logoImage} alt="Habits" />
@@ -32,7 +36,7 @@ export function Header() {
               Criar hábito
             </Dialog.Title>
 
-            <NewHabitForm />
+            <NewHabitForm handleSummaryChange={handleSummaryChange} />
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
