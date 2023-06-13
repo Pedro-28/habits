@@ -2,6 +2,8 @@
 
 Este é um projeto fullstack de gerenciamento de hábitos, onde você pode cadastrar os hábitos que deseja concluir nos dias da semana desejados. O projeto foi desenvolvido com o objetivo de ajudar os usuários a organizar suas rotinas diárias e acompanhar o progresso de seus hábitos.
 
+![habits](https://github.com/Pedro-28/habits/assets/99993116/a23de433-168b-48d4-81ae-e57eb3d1139b)
+
 ## Tecnologias Utilizadas
 
 ### Frontend
